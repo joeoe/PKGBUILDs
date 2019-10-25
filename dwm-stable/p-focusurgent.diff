@@ -1,0 +1,34 @@
+diff --git a/dwm.c b/dwm.c
+index 4465af1..a9ad692 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -169,6 +169,7 @@ static void focus(Client *c);
+ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
++static void focusurgent(const Arg *arg);
+ static int getrootptr(int *x, int *y);
+ static long getstate(Window w);
+ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
+@@ -855,6 +856,21 @@ focusstack(const Arg *arg)
+ 	}
+ }
+ 
++void
++focusurgent(const Arg *arg) {
++    Client *c;
++    int i;
++    for(c=selmon->clients; c && !c->isurgent; c=c->next);
++    if(c) {
++        for(i=0; i < LENGTH(tags) && !((1 << i) & c->tags); i++);
++        if(i < LENGTH(tags)) {
++            const Arg a = {.ui = 1 << i};
++            view(&a);
++            focus(c);
++        }
++    }
++}
++
+ Atom
+ getatomprop(Client *c, Atom prop)
+ {

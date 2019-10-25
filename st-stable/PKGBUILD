@@ -1,0 +1,56 @@
+pkgname=st
+pkgver=0.8.2
+pkgrel=2
+pkgdesc='A simple virtual terminal emulator for X.'
+url="http://st.suckless.org"
+arch=('i686' 'x86_64')
+license=('MIT')
+depends=('libxft' 'libxext' 'xorg-fonts-misc')
+makedepends=('ncurses')
+_patches=(
+    "st-scrollback.diff"
+    "st-scrollback-mouse.diff"
+    "st-scrollback-mouse-altscreen.diff"
+    "st-delkey.diff"
+    # "st-font2.diff"
+    # "st-xresources.diff"
+)
+source=(
+    "st-0.8.2.tar.gz"
+    "config.h"
+    "${_patches[@]}"
+)
+sha256sums=(
+    "SKIP"
+    "SKIP"
+    "SKIP"
+    "SKIP"
+    "SKIP"
+    "SKIP"
+)
+
+prepare() {
+	cd "$srcdir/$pkgname-$pkgver"
+    cp "$srcdir/config.h" .
+
+	for file in "${_patches[@]}"; do
+        cp "$srcdir/$file" .
+	done
+}
+
+build() {
+    cd $srcdir/$pkgname-$pkgver
+	for file in "${_patches[@]}"; do
+        patch -Np1 -i "$srcdir/$file"
+	done
+    make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+    cd $srcdir/$pkgname-$pkgver
+    make PREFIX=/usr DESTDIR="$pkgdir" TERMINFO="$pkgdir/usr/share/terminfo" install
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 README "$pkgdir/usr/share/doc/$pkgname/README"
+    # remove to avoid conflict with ncurses
+    rm "${pkgdir}/usr/share/terminfo/s/st" "${pkgdir}/usr/share/terminfo/s/st-256color" 
+}

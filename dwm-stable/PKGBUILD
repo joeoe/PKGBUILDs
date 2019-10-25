@@ -1,0 +1,70 @@
+pkgname=dwm
+pkgver=6.2
+pkgrel=1
+pkgdesc="A dynamic window manager for X."
+url="http://dwm.suckless.org"
+arch=('x86_64')
+license=('MIT')
+options=(zipman)
+depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'st' 'dmenu')
+_patches=(
+	"p-autostart.diff"
+	"p-xrdb.diff"
+	"p-fullscreen.diff"
+    "p-restartsig.diff"
+    "p-noborder.diff"
+    "p-fancybar.diff"
+    "p-zoomswap.diff"
+    "p-combo.diff"
+    "p-scratchpad.diff"
+    "p-fakefullscreen.diff"
+    "p-focusurgent.diff"
+)
+source=(
+    "http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz"
+    "dwm.desktop"
+    "config.h"
+    "${_patches[@]}"
+)
+sha256sums=(
+    '97902e2e007aaeaa3c6e3bed1f81785b817b7413947f1db1d3b62b8da4cd110e'
+    '7c797cb077bb868adf3841205b96d19794a93acb01b4c52a629d4e28a1533bbe'
+    'SKIP'
+    'e2b59b2c591c76ff95efec8288ef7796313951c52b24dd49ab23fdae98460608'
+    '6d3d63eab245ec39cee8986c7b6260577f2f77d5a3b98b85c11b2f3f2da92f40'
+    'a1f75d95febb9c054ec7dce83152b41b662b84da3c7d84a0d175ae98090798e9'
+    'c74f2f41da552b0c8629ddb9fec7b40a035581041cf198d81a43d4b16b742f69'
+    'baeb1ec689f413c2f3743f0147ff636c3bb1a82fab69cb19eb3501c36b7ceead'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+)
+
+prepare() {
+	cd "$srcdir/$pkgname-$pkgver"
+    cp "$srcdir/config.h" .
+
+	for file in "${_patches[@]}"; do
+        cp "$srcdir/$file" .
+	done
+}
+
+build() {
+	cd $srcdir/$pkgname-$pkgver
+	for file in "${_patches[@]}"; do
+        patch -Np1 -i "$srcdir/$file"
+	done
+	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 FREETYPEINC=/usr/include/freetype2
+}
+
+package() {
+	cd $srcdir/$pkgname-$pkgver
+	make PREFIX=/usr DESTDIR=$pkgdir install
+	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	install -Dm644 README "$pkgdir/usr/share/doc/$pkgname/README"
+	install -Dm644 "$srcdir/dwm.desktop" "$pkgdir/usr/share/xsessions/dwm.desktop"
+}
+
