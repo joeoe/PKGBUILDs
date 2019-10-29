@@ -84,6 +84,8 @@ static const char *media_play[] =  { "media-global-play", NULL};
 static const char *vol_up[] =    { "change-volume", "5%+", NULL};
 static const char *vol_down[] =  { "change-volume", "5%-", NULL};
 static const char *vol_mute[] =  { "change-volume", "toggle", NULL};
+static const char *bright_up[] = { "xbacklight", "-inc", "10", NULL };
+static const char *bright_down[] = { "xbacklight", "-dec", "10", NULL };
 /* static const char *screenshot_sel[] = { "sleep", "0.2;", "scrot", "'%Y-%m-%d_%T_$wx$h_scr.png'", "-s", "-e", "'mv", "$f", "~/images/shots/'", NULL}; */
 static const char *screenshot_win[] = { "scrot", "%Y-%m-%d_%T_$wx$h_scr.png", "-u", "-e", "mv $f ~/images/shots/", NULL};
 static const char *screenshot_mon[] = { "scrot", "%Y-%m-%d_%T_$wx$h_scr.png", "-u", "-e", "mv $f ~/images/shots/", NULL};
@@ -144,6 +146,9 @@ static Key keys[] = {
 	{ 0,                   XF86XK_AudioPlay,          spawn,  {.v = media_play} },
 	{ 0,                   XF86XK_AudioNext,          spawn,  {.v = media_next} },
 	{ 0,                   XF86XK_AudioPrev,          spawn,  {.v = media_prev} },
+	{ 0,                   XF86XK_MonBrightnessUp ,   spawn,  {.v = bright_up} },
+	{ 0,                   XF86XK_MonBrightnessDown , spawn,  {.v = bright_down} },
+	{ 0,                   XF86XK_AudioRaiseVolume,   spawn,  {.v = vol_up} },
 	{ MODKEY|ShiftMask,    XK_q,                      quit,           {1} },
 	{ MODKEY|ControlMask,  XK_q,                      quit,           {0} },
 };
