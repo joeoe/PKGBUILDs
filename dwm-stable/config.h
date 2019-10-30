@@ -49,6 +49,7 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	/* { "><>",      NULL },    /1* no layout function means floating behavior *1/ */
 	{ "[M]",      monocle },
+    { "[D]",      deck },
 };
 
 /* key definitions */
@@ -95,7 +96,7 @@ static Key keys[] = {
 	{ MODKEY,              XK_d,                      spawn,          {.v = dmenucmd } },
 	{ MODKEY,              XK_x,                      spawn,          {.v = dmenucmd } },
 	{ MODKEY,              XK_p,                      spawn,          {.v = rofi_pass } },
-	{ MODKEY,              XK_t,                      spawn,          {.v = rofi_tmux } },
+	{ MODKEY,              XK_F1,                     spawn,          {.v = rofi_tmux } },
 	{ MODKEY,              XK_F2,                     spawn,          {.v = rofi_book } },
 	{ MODKEY|ShiftMask,    XK_Return,                 spawn,          {.v = term_tmux } },
 	{ MODKEY|ControlMask,  XK_Return,                 spawn,          {.v = termcmd } },
@@ -104,6 +105,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,    XK_b,                      spawn,          {.v = browser_alt } },
 	{ MODKEY|ControlMask,  XK_b,                      togglebar,      {0} },
 	{ MODKEY,              XK_a,                      focusurgent,    {0} },
+	{ MODKEY,              XK_s,                      focusmaster,    {0} },
 	{ MODKEY,              XK_j,                      focusstack,     {.i = +1 } },
 	{ MODKEY,              XK_k,                      focusstack,     {.i = -1 } },
 	{ MODKEY,              XK_i,                      incnmaster,     {.i = +1 } },
@@ -114,9 +116,9 @@ static Key keys[] = {
 	{ MODKEY,              XK_Return,                 zoom,           {0} },
 	{ MODKEY,              XK_Tab,                    view,           {0} },
 	{ MODKEY|ShiftMask,    XK_c,                      killclient,     {0} },
-	/* { MODKEY,              XK_t,      setlayout,      {.v = &layouts[0]} }, */
-	/* { MODKEY,              XK_f,      setlayout,      {.v = &layouts[1]} }, */
-	/* { MODKEY,              XK_m,      setlayout,      {.v = &layouts[2]} }, */
+	{ MODKEY,              XK_t,                      setlayout,      {.v = &layouts[0]} }, // tile
+	{ MODKEY,              XK_m,                      setlayout,      {.v = &layouts[1]} }, // monocle
+	{ MODKEY,              XK_c,                      setlayout,      {.v = &layouts[2]} }, // deck|columns|stacks
 	{ MODKEY,              XK_space,                  setlayout,      {0} },
     { MODKEY,              XK_f,                      fullscreen,     {0} },
     { MODKEY|ShiftMask,    XK_f,                      togglefloating, {0} },

@@ -20,6 +20,7 @@ _patches=(
     "p-scratchpad.diff"
     "p-fakefullscreen.diff"
     "p-focusurgent.diff"
+    "p-focusmaster.diff"
 )
 source=(
     "http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz"
@@ -27,22 +28,22 @@ source=(
     "config.h"
     "${_patches[@]}"
 )
-sha256sums=(
-    '97902e2e007aaeaa3c6e3bed1f81785b817b7413947f1db1d3b62b8da4cd110e'
-    '7c797cb077bb868adf3841205b96d19794a93acb01b4c52a629d4e28a1533bbe'
-    'SKIP'
-    'e2b59b2c591c76ff95efec8288ef7796313951c52b24dd49ab23fdae98460608'
-    '6d3d63eab245ec39cee8986c7b6260577f2f77d5a3b98b85c11b2f3f2da92f40'
-    'a1f75d95febb9c054ec7dce83152b41b662b84da3c7d84a0d175ae98090798e9'
-    'c74f2f41da552b0c8629ddb9fec7b40a035581041cf198d81a43d4b16b742f69'
-    'baeb1ec689f413c2f3743f0147ff636c3bb1a82fab69cb19eb3501c36b7ceead'
-    'SKIP'
-    'SKIP'
-    'SKIP'
-    'SKIP'
-    'SKIP'
-    'SKIP'
-)
+sha256sums=('97902e2e007aaeaa3c6e3bed1f81785b817b7413947f1db1d3b62b8da4cd110e'
+            '7c797cb077bb868adf3841205b96d19794a93acb01b4c52a629d4e28a1533bbe'
+            '1656f6493188b6eff28cef181ce5dc3a13c5b71a73b654cfdbe9ec9991949d09'
+            'e2b59b2c591c76ff95efec8288ef7796313951c52b24dd49ab23fdae98460608'
+            '6d3d63eab245ec39cee8986c7b6260577f2f77d5a3b98b85c11b2f3f2da92f40'
+            'c74f2f41da552b0c8629ddb9fec7b40a035581041cf198d81a43d4b16b742f69'
+            'baeb1ec689f413c2f3743f0147ff636c3bb1a82fab69cb19eb3501c36b7ceead'
+            'fff620115f9c76a65e0bb18b56bf3354a5ba9585aad52c057a88a03b4a29c52d'
+            '49b39d09128f879902dccbef6d67d0ea89fbcdd18b82ce12e379003204089206'
+            'a1f75d95febb9c054ec7dce83152b41b662b84da3c7d84a0d175ae98090798e9'
+            'feaf302e4e6a2334063bc02c33b3b172198dc18acc854b3fa907dfb3cec5d4fe'
+            'd2ad8895b743cb5ee7e898b68012b1071b6431df2b13c118f8034cc1ea9c1dad'
+            '78f438ba26a3629ae2c7a20ed542ab2a6361ec121ad614dcac414b8518d32a85'
+            '3ab0872f66ca32ccef66e851a07087456a69fad6e7729dbec08f78e7ee93b0f3'
+            'a76ec45489e11f16bc37baceb60a510ac3727180830c217727b4cf5440a33db2'
+            '5a99794313a81300e33e2cb3b615027f3a9d1a91f4d5463edcc1591a506c69a8')
 
 prepare() {
 	cd "$srcdir/$pkgname-$pkgver"

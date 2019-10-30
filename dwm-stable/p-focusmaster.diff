@@ -1,0 +1,25 @@
+diff --git a/dwm.c b/dwm.c
+index 4465af1..74afe76 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -167,6 +167,7 @@ static void enternotify(XEvent *e);
+ static void expose(XEvent *e);
+ static void focus(Client *c);
+ static void focusin(XEvent *e);
++static void focusmaster(const Arg *arg);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
+ static int getrootptr(int *x, int *y);
+@@ -815,6 +816,12 @@ focusin(XEvent *e)
+ 		setfocus(selmon->sel);
+ }
+ 
++void
++focusmaster(const Arg *arg) 
++{
++    focus(nexttiled(selmon->clients));
++}
++
+ void
+ focusmon(const Arg *arg)
+ {
