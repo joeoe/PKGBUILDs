@@ -10,10 +10,11 @@ depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'st' 'dmenu')
 _patches=(
 	"p-autostart.diff"
 	"p-xrdb.diff"
-	"p-fullscreen.diff"
     "p-restartsig.diff"
     "p-noborder.diff"
     "p-fancybar.diff"
+    "p-deck.diff"
+	"p-fullscreen.diff"
     "p-zoomswap.diff"
     "p-combo.diff"
     "p-scratchpad.diff"
